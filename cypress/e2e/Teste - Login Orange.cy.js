@@ -10,7 +10,7 @@ describe("Orange GRM Test", () => {
   };
   const userData = {
     userSucess: { userSucess: "Admin", password: "admin123" },
-    userFail: { userFail: "Admin", password: "234" },
+    userFail: { userFail: "Admin", password: "2345" },
   };
 
   it.only("Login - sucesso", () => {
