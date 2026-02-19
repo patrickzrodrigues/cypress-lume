@@ -1,4 +1,3 @@
-
 import userData from "../fixtures/userData.json";
 describe("Orange GRM Test", () => {
   const selectorList = {
@@ -14,9 +13,7 @@ describe("Orange GRM Test", () => {
   };
 
   it.only("Login - sucesso", () => {
-    cy.visit(
-      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
-    );
+    cy.visit("/auth/login");
     cy.get(".orangehrm-login-branding").should("be.visible");
     cy.get(selectorList.username).type(userData.userSucess.userSucess);
     cy.get(selectorList.password).type(userData.userSucess.password);
@@ -25,9 +22,7 @@ describe("Orange GRM Test", () => {
     cy.get(selectorList.SelectionTitleTopBar).should("contain", "Dashboard");
   });
   it.only("Login - Fail", () => {
-    cy.visit(
-      "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
-    );
+    cy.visit("/auth/login");
     cy.get(".orangehrm-login-branding").should("be.visible");
     cy.get(selectorList.username).type(userData.userFail.userFail);
     cy.get(selectorList.password).type(userData.userFail.password);

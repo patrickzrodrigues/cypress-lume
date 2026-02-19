@@ -6,10 +6,12 @@ module.exports = defineConfig({
   viewportHeight: 1080,
 
   e2e: {
-    setupNodeEvents(on, config) {},
-    allowCypressEnv: false,
-
+    setupNodeEvents(on, config) {
+      // Função de configuração de eventos pode ser usada aqui, se necessário
+      return config;
+    },
     experimentalStudio: false,
+    baseUrl: "https://opensource-demo.orangehrmlive.com/web/index.php",
   },
   env: {},
 });
