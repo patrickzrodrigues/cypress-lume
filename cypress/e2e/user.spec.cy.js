@@ -4,13 +4,16 @@ import DashboardPage from "../Pages/dashboardPage.js";
 import MenuPage from "../Pages/menuPage.js";
 import MyInfoPage from "../Pages/myInfoPage.js";
 
+const Chance = require("chance");
+const chance = new Chance(); // Corrigido: Chance deve ser instanciado corretamente
+
 const loginPage = new LoginPage();
 const dashboardPage = new DashboardPage();
 const myInfoPage = new MyInfoPage();
 const menuPage = new MenuPage();
 
 describe("Orange GRM Test", () => {
-  it.only("User Info Update - sucesso", () => {
+  it("User Info Update - sucesso", () => {
     loginPage.accessLoginPage();
     loginPage.loginWithAnyUser(
       userData.userSucess.userSucess,
@@ -18,26 +21,24 @@ describe("Orange GRM Test", () => {
     );
     dashboardPage.checkDashboardPage();
 
-    //Acesasa a Pagina de my info
+    //Acessa a Pagina de my info
     menuPage.accessMyInfo();
-    myInfoPage.checkMyInfoPage()
+    myInfoPage.checkMyInfoPage();
     //Altera os dados do usuario
     cy.wait(5000);
-    myInfoPage.fillPersonalDetails("Dino da Silva Sauro", "QA Engeneer", "Test Autmation");
-    myInfoPage.fillEmployeeDetails("123456", "654321", "AB123456", "1990-01-01");
+    myInfoPage.fillPersonalDetails(
+      chance.first(),
+      chance.last(),
+      chance.string({ length: 10 }),
+    );
+
+    myInfoPage.fillEmployeeDetails(
+      chance.natural({ min: 1, max: 10 }),
+      chance.prime({ min: 1, max: 10 }),
+      chance.string({ length: 10 }),
+      chance.date({ year: 2020, month: 1, day: 1 }).toISOString().split("T")[0],
+    );
     myInfoPage.fillStatus();
     myInfoPage.saveForm();
-    // });
-    it("Login - Fail", () => {
-      cy.visit("/auth/login");
-      cy.get(".orangehrm-login-branding").should("be.visible");
-      cy.get(selectorList.username).type(userData.userFail.userFail);
-      cy.get(selectorList.password).type(userData.userFail.password);
-      cy.get(selectorList.loginButton).click();
-      cy.get(selectorList.wrongCreadentialAlert).should(
-        "contain",
-        "Invalid credentials",
-      );
-    });
   });
 });

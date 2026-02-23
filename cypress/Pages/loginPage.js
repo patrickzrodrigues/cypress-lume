@@ -7,7 +7,7 @@ class LoginPage {
       wrongCreadentialAlert: ".oxd-alert-content-text",
     };
 
-    return selectors
+    return selectors;
   }
 
   accessLoginPage() {
@@ -19,6 +19,10 @@ class LoginPage {
     cy.get(this.selectorList().username).type(username);
     cy.get(this.selectorList().password).type(password);
     cy.get(this.selectorList().loginButton).click();
+  }
+
+  CheckAccessInvalid() {
+    cy.get(this.selectorList().wrongCreadentialAlert);
   }
 }
 
